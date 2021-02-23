@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  frontend:
+    build:
+      context: "frontend"
+      dockerfile: "Dockerfile"
+    container_name: frontend
+    ports:
+      - '80:4200'
+    restart: on-failure
+  server:
+    env_file:
+      - .env
+    build:
+      context: "server"
+      dockerfile: "Dockerfile"
+    container_name: server
+    ports:
+      - '5000:5000'
+    restart: on-failure
+  mongodb-instance:
+    image: mongo
+    container_name: mongodb-instance
+    ports:
+      - "27017:27017"
+    restart: on-failure
